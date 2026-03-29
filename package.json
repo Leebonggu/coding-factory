@@ -6,7 +6,12 @@
   "scripts": {
     "dev": "pnpm --filter @coding-factory/base dev",
     "build": "pnpm --filter @coding-factory/base build",
-    "cli": "pnpm --filter @coding-factory/cli start"
+    "cli:build": "pnpm --filter @coding-factory/cli build",
+    "create": "node packages/cli/dist/index.js init",
+    "factory": "node packages/cli/dist/index.js",
+    "test:e2e": "node scripts/test-presets.mjs",
+    "demo:build": "node scripts/build-demo.mjs",
+    "demo:generate": "node scripts/build-demo.mjs --only-generate"
   },
   "engines": {
     "node": ">=20",

@@ -1,0 +1,32 @@
+name: E2E Preset Test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test-presets:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        preset: [landing, saas, ecommerce]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Test ${{ matrix.preset }} preset
+        run: node scripts/test-presets.mjs ${{ matrix.preset }}
