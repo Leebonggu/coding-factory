@@ -56,7 +56,7 @@ export function SignupForm({ callbackUrl = '/dashboard' }: SignupFormProps) {
         body: JSON.stringify({ name, email, password }),
       })
 
-      const data = await res.json()
+      const data = (await res.json()) as { message?: string }
 
       if (!res.ok) {
         setError(data.message ?? 'Registration failed. Please try again.')

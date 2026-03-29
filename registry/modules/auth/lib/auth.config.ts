@@ -18,6 +18,7 @@
  */
 
 import type { NextAuthConfig } from 'next-auth'
+import '@/types/next-auth'
 import Google from 'next-auth/providers/google'
 import Credentials from 'next-auth/providers/credentials'
 // import Kakao from 'next-auth/providers/kakao'
@@ -72,13 +73,13 @@ export const authConfig: NextAuthConfig = {
         const { db } = await import('@/lib/db')
 
         const user = await db.user.findUnique({
-          where: { email: credentials.email as string },
+          where: { email: String(credentials.email) },
         })
 
         if (!user || !user.password) return null
 
         const passwordMatch = await bcrypt.compare(
-          credentials.password as string,
+          String(credentials.password),
           user.password,
         )
 
@@ -89,7 +90,7 @@ export const authConfig: NextAuthConfig = {
           name: user.name,
           email: user.email,
           image: user.image,
-          role: (user as any).role ?? 'user',
+          role: user.role ?? 'user',
         }
       },
     }),
@@ -113,7 +114,7 @@ export const authConfig: NextAuthConfig = {
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id
-        token.role = (user as any).role ?? 'user'
+        token.role = user.role ?? 'user'
       }
       return token
     },
@@ -124,8 +125,10 @@ export const authConfig: NextAuthConfig = {
      */
     async session({ session, token }) {
       if (session.user) {
-        session.user.id = token.id as string
-        ;(session.user as any).role = token.role
+        if (typeof token.id === 'string') {
+          session.user.id = token.id
+        }
+        session.user.role = token.role
       }
       return session
     },

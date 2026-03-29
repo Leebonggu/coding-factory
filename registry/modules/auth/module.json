@@ -12,6 +12,7 @@
   "requiredModules": ["db"],
   "optionalModules": ["security", "analytics"],
   "files": [
+    { "source": "types/next-auth.d.ts", "target": "src/types/next-auth.d.ts" },
     { "source": "lib/auth.ts", "target": "src/lib/auth.ts" },
     { "source": "lib/auth.config.ts", "target": "src/lib/auth.config.ts" },
     { "source": "components/login-form.tsx", "target": "src/components/auth/login-form.tsx" },
