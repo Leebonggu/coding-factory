@@ -65,10 +65,11 @@ export async function requireAuth() {
   const { redirect } = await import('next/navigation')
 
   const session = await auth()
+  const user = session?.user
 
-  if (!session?.user) {
+  if (!user) {
     redirect('/login')
   }
 
-  return session!.user
+  return user
 }

@@ -36,7 +36,7 @@ export function UserButton({ signOutCallbackUrl = '/' }: UserButtonProps) {
   // Close dropdown on outside click
   useEffect(() => {
     function handleOutsideClick(e: MouseEvent) {
-      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+      if (containerRef.current && e.target instanceof Node && !containerRef.current.contains(e.target)) {
         setOpen(false)
       }
     }

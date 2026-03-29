@@ -1,5 +1,11 @@
+interface JsonLdData {
+  '@context': string
+  '@type': string
+  [key: string]: unknown
+}
+
 interface JsonLdProps {
-  data: Record<string, unknown>
+  data: JsonLdData
 }
 
 export function JsonLd({ data }: JsonLdProps) {

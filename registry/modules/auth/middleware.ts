@@ -16,7 +16,7 @@
  *   export default authMiddleware(nextMiddleware)
  */
 
-import { NextResponse } from 'next/server'
+import { NextResponse, type NextFetchEvent } from 'next/server'
 import type { NextRequest, NextMiddleware } from 'next/server'
 import { auth } from '@/lib/auth'
 
@@ -24,7 +24,7 @@ const protectedRoutes = ['/dashboard', '/settings', '/profile']
 const authRoutes = ['/login', '/register']
 
 export function authMiddleware(next: NextMiddleware) {
-  return async function middleware(request: NextRequest, event: any) {
+  return async function middleware(request: NextRequest, event: NextFetchEvent) {
     const { pathname } = request.nextUrl
 
     // Check if route needs protection

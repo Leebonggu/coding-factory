@@ -1,3 +1,9 @@
+declare global {
+  interface Window {
+    dataLayer?: Record<string, unknown>[]
+  }
+}
+
 export const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID ?? "";
 
 /**
@@ -29,8 +35,6 @@ export function pushToDataLayer(data: Record<string, unknown>): void {
   if (typeof window === "undefined") return;
   if (!GTM_ID) return;
 
-  (window as unknown as Record<string, unknown[]>)["dataLayer"] =
-    (window as unknown as Record<string, unknown[]>)["dataLayer"] ?? [];
-
-  (window as unknown as { dataLayer: unknown[] })["dataLayer"].push(data);
+  window.dataLayer = window.dataLayer ?? [];
+  window.dataLayer.push(data);
 }
