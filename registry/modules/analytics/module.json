@@ -1,0 +1,19 @@
+{
+  "name": "analytics",
+  "description": "GA4, GTM, event tracking, cookie consent banner",
+  "category": "marketing",
+  "dependencies": {},
+  "devDependencies": {},
+  "requiredModules": [],
+  "optionalModules": [],
+  "files": [
+    { "source": "components/analytics-provider.tsx", "target": "src/components/analytics/analytics-provider.tsx" },
+    { "source": "components/cookie-consent.tsx", "target": "src/components/analytics/cookie-consent.tsx" },
+    { "source": "lib/analytics.ts", "target": "src/lib/analytics.ts" },
+    { "source": "lib/gtm.ts", "target": "src/lib/gtm.ts" }
+  ],
+  "configPatches": [
+    { "file": ".env.example", "action": "append", "content": "NEXT_PUBLIC_GA_MEASUREMENT_ID=\nNEXT_PUBLIC_GTM_ID=" }
+  ],
+  "envVars": ["NEXT_PUBLIC_GA_MEASUREMENT_ID", "NEXT_PUBLIC_GTM_ID"]
+}

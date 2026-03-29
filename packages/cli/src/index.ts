@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import { Command } from 'commander'
 import { init } from './commands/init.js'
+import { add } from './commands/add.js'
 
 const program = new Command()
 
@@ -15,11 +16,10 @@ program
   .argument('[name]', 'Project name')
   .action(init)
 
-// Phase 2: add command
-// program
-//   .command('add')
-//   .description('Add a module to existing project')
-//   .argument('<module>', 'Module name')
-//   .action(add)
+program
+  .command('add')
+  .description('Add a module to an existing project')
+  .argument('<module>', 'Module name')
+  .action(add)
 
 program.parse()
