@@ -1,0 +1,34 @@
+@import "tailwindcss";
+
+:root {
+  --factory-background: 0 0% 100%;
+  --factory-foreground: 222.2 84% 4.9%;
+  --factory-primary: 222.2 47.4% 11.2%;
+  --factory-primary-foreground: 210 40% 98%;
+  --factory-secondary: 210 40% 96.1%;
+  --factory-secondary-foreground: 222.2 47.4% 11.2%;
+  --factory-muted: 210 40% 96.1%;
+  --factory-muted-foreground: 215.4 16.3% 46.9%;
+  --factory-accent: 210 40% 96.1%;
+  --factory-accent-foreground: 222.2 47.4% 11.2%;
+  --factory-destructive: 0 84.2% 60.2%;
+  --factory-border: 214.3 31.8% 91.4%;
+  --factory-ring: 222.2 84% 4.9%;
+  --factory-radius: 0.5rem;
+}
+
+.dark {
+  --factory-background: 222.2 84% 4.9%;
+  --factory-foreground: 210 40% 98%;
+  --factory-primary: 210 40% 98%;
+  --factory-primary-foreground: 222.2 47.4% 11.2%;
+  --factory-secondary: 217.2 32.6% 17.5%;
+  --factory-secondary-foreground: 210 40% 98%;
+  --factory-muted: 217.2 32.6% 17.5%;
+  --factory-muted-foreground: 215 20.2% 65.1%;
+  --factory-accent: 217.2 32.6% 17.5%;
+  --factory-accent-foreground: 210 40% 98%;
+  --factory-destructive: 0 62.8% 30.6%;
+  --factory-border: 217.2 32.6% 17.5%;
+  --factory-ring: 212.7 26.8% 83.9%;
+}

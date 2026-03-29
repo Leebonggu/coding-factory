@@ -1,0 +1,18 @@
+{
+  "name": "seo",
+  "description": "SEO optimization - meta tags, sitemap, robots.txt, JSON-LD, Korean portal support",
+  "category": "marketing",
+  "dependencies": {},
+  "devDependencies": {},
+  "requiredModules": [],
+  "optionalModules": ["analytics"],
+  "files": [
+    { "source": "lib/seo.ts", "target": "src/lib/seo.ts" },
+    { "source": "lib/structured-data.ts", "target": "src/lib/structured-data.ts" },
+    { "source": "components/json-ld.tsx", "target": "src/components/seo/json-ld.tsx" },
+    { "source": "app/sitemap.ts", "target": "src/app/sitemap.ts" },
+    { "source": "app/robots.ts", "target": "src/app/robots.ts" }
+  ],
+  "configPatches": [],
+  "envVars": ["NEXT_PUBLIC_SITE_URL"]
+}

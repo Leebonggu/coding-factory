@@ -1,0 +1,7 @@
+{
+  "name": "ecommerce",
+  "description": "E-commerce / shopping mall",
+  "modules": ["auth", "db", "security", "seo", "analytics", "ads"],
+  "layout": "marketing",
+  "theme": "default"
+}

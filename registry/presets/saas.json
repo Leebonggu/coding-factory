@@ -1,0 +1,7 @@
+{
+  "name": "saas",
+  "description": "SaaS application with dashboard",
+  "modules": ["auth", "db", "security", "analytics", "seo"],
+  "layout": "dashboard",
+  "theme": "default"
+}

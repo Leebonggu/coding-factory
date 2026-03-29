@@ -1,0 +1,9 @@
+{
+  "name": "marketing",
+  "description": "Full-width marketing layout with header and footer",
+  "files": [
+    { "source": "layout.tsx", "target": "src/app/(marketing)/layout.tsx" },
+    { "source": "components/header.tsx", "target": "src/components/layout/marketing-header.tsx" },
+    { "source": "components/footer.tsx", "target": "src/components/layout/marketing-footer.tsx" }
+  ]
+}

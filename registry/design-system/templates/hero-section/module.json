@@ -1,0 +1,8 @@
+{
+  "name": "hero-section",
+  "description": "Hero section with headline, description, and CTA buttons",
+  "category": "template",
+  "files": [
+    { "source": "hero-section.tsx", "target": "src/components/sections/hero-section.tsx" }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "name": "landing",
+  "description": "Landing page / company site",
+  "modules": ["seo", "analytics", "ads"],
+  "layout": "marketing",
+  "theme": "default"
+}

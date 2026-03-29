@@ -1,0 +1,15 @@
+{
+  "name": "coding-factory",
+  "version": "0.1.0",
+  "private": true,
+  "description": "모듈형 웹 프로젝트 생성기 - Registry + Codegen 아키텍처",
+  "scripts": {
+    "dev": "pnpm --filter @coding-factory/base dev",
+    "build": "pnpm --filter @coding-factory/base build",
+    "cli": "pnpm --filter @coding-factory/cli start"
+  },
+  "engines": {
+    "node": ">=20",
+    "pnpm": ">=9"
+  }
+}

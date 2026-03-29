@@ -1,0 +1,27 @@
+{
+  "name": "@coding-factory/cli",
+  "version": "0.1.0",
+  "description": "CLI for Coding Factory - create and manage modular web projects",
+  "type": "module",
+  "bin": {
+    "create-factory": "./dist/index.js",
+    "factory": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsup src/index.ts --format esm --dts",
+    "dev": "tsup src/index.ts --format esm --watch",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "@clack/prompts": "^0.9",
+    "commander": "^13",
+    "fs-extra": "^11",
+    "picocolors": "^1"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11",
+    "@types/node": "^22",
+    "tsup": "^8",
+    "typescript": "^5"
+  }
+}

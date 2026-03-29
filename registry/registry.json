@@ -1,0 +1,79 @@
+{
+  "$schema": "./registry.schema.json",
+  "version": "0.1.0",
+  "modules": {
+    "seo": {
+      "name": "seo",
+      "description": "SEO optimization with meta tags, sitemap, structured data",
+      "category": "marketing",
+      "path": "modules/seo",
+      "requiredModules": [],
+      "optionalModules": ["analytics"]
+    },
+    "analytics": {
+      "name": "analytics",
+      "description": "GA4, GTM, event tracking, cookie consent",
+      "category": "marketing",
+      "path": "modules/analytics",
+      "requiredModules": [],
+      "optionalModules": []
+    },
+    "ads": {
+      "name": "ads",
+      "description": "Google AdSense, Naver AdPost, ad slot components",
+      "category": "marketing",
+      "path": "modules/ads",
+      "requiredModules": [],
+      "optionalModules": ["analytics"]
+    },
+    "security": {
+      "name": "security",
+      "description": "HTTP security headers, CSP, CSRF, rate limiting",
+      "category": "security",
+      "path": "modules/security",
+      "requiredModules": [],
+      "optionalModules": []
+    },
+    "auth": {
+      "name": "auth",
+      "description": "NextAuth.js v5 authentication",
+      "category": "security",
+      "path": "modules/auth",
+      "requiredModules": ["db"],
+      "optionalModules": ["security", "analytics"]
+    },
+    "db": {
+      "name": "db",
+      "description": "Database adapter (Prisma default, Drizzle alternative)",
+      "category": "core",
+      "path": "modules/db",
+      "requiredModules": [],
+      "optionalModules": []
+    }
+  },
+  "presets": {
+    "landing": {
+      "name": "landing",
+      "description": "Landing page / company site",
+      "modules": ["seo", "analytics", "ads"],
+      "layout": "marketing",
+      "theme": "default"
+    },
+    "saas": {
+      "name": "saas",
+      "description": "SaaS application with dashboard",
+      "modules": ["auth", "db", "security", "analytics", "seo"],
+      "layout": "dashboard",
+      "theme": "default"
+    },
+    "ecommerce": {
+      "name": "ecommerce",
+      "description": "E-commerce / shopping mall",
+      "modules": ["auth", "db", "security", "seo", "analytics", "ads"],
+      "layout": "marketing",
+      "theme": "default"
+    }
+  },
+  "themes": ["default", "corporate", "playful"],
+  "layouts": ["marketing", "dashboard"]
+}

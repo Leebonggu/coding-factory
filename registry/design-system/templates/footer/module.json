@@ -1,0 +1,8 @@
+{
+  "name": "footer",
+  "description": "Multi-column footer with social links and newsletter signup area",
+  "category": "template",
+  "files": [
+    { "source": "footer.tsx", "target": "src/components/sections/footer.tsx" }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "name": "pricing-table",
+  "description": "Three-column pricing comparison table with highlighted recommended plan",
+  "category": "template",
+  "files": [
+    { "source": "pricing-table.tsx", "target": "src/components/sections/pricing-table.tsx" }
+  ]
+}

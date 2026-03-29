@@ -1,0 +1,9 @@
+{
+  "name": "dashboard",
+  "description": "Dashboard layout with collapsible sidebar, topbar, and main content area",
+  "files": [
+    { "source": "layout.tsx", "target": "src/app/(dashboard)/layout.tsx" },
+    { "source": "components/sidebar.tsx", "target": "src/components/layout/dashboard-sidebar.tsx" },
+    { "source": "components/topbar.tsx", "target": "src/components/layout/dashboard-topbar.tsx" }
+  ]
+}

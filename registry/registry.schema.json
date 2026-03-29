@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Coding Factory Registry",
+  "type": "object",
+  "required": ["version", "modules", "presets"],
+  "properties": {
+    "version": { "type": "string" },
+    "modules": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["name", "description", "category", "path", "requiredModules", "optionalModules"],
+        "properties": {
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "category": { "type": "string", "enum": ["marketing", "security", "core"] },
+          "path": { "type": "string" },
+          "requiredModules": { "type": "array", "items": { "type": "string" } },
+          "optionalModules": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "presets": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["name", "description", "modules", "layout", "theme"],
+        "properties": {
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "modules": { "type": "array", "items": { "type": "string" } },
+          "layout": { "type": "string" },
+          "theme": { "type": "string" }
+        }
+      }
+    },
+    "themes": { "type": "array", "items": { "type": "string" } },
+    "layouts": { "type": "array", "items": { "type": "string" } }
+  }
+}
