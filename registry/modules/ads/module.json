@@ -1,0 +1,20 @@
+{
+  "name": "ads",
+  "description": "Google AdSense, Naver AdPost, declarative ad slot components",
+  "category": "marketing",
+  "dependencies": {},
+  "devDependencies": {},
+  "requiredModules": [],
+  "optionalModules": ["analytics"],
+  "files": [
+    { "source": "components/ad-slot.tsx", "target": "src/components/ads/ad-slot.tsx" },
+    { "source": "components/adsense-script.tsx", "target": "src/components/ads/adsense-script.tsx" },
+    { "source": "components/adpost-script.tsx", "target": "src/components/ads/adpost-script.tsx" },
+    { "source": "components/ad-blocker-detect.tsx", "target": "src/components/ads/ad-blocker-detect.tsx" },
+    { "source": "lib/ads.ts", "target": "src/lib/ads.ts" }
+  ],
+  "configPatches": [
+    { "file": ".env.example", "action": "append", "content": "NEXT_PUBLIC_ADSENSE_CLIENT_ID=\nNEXT_PUBLIC_ADPOST_ID=" }
+  ],
+  "envVars": ["NEXT_PUBLIC_ADSENSE_CLIENT_ID", "NEXT_PUBLIC_ADPOST_ID"]
+}

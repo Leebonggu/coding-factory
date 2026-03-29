@@ -159,3 +159,77 @@ export function writeFactoryConfig(
   const configPath = resolve(targetDir, 'factory.config.json')
   writeFileSync(configPath, JSON.stringify(config, null, 2) + '\n', 'utf-8')
 }
+
+export interface FactoryConfig {
+  preset: string
+  theme: string
+  modules: string[]
+  layout: string
+}
+
+/**
+ * Read factory.config.json from an existing project directory.
+ * Returns null if the file does not exist.
+ */
+export function readFactoryConfig(targetDir: string): FactoryConfig | null {
+  const configPath = resolve(targetDir, 'factory.config.json')
+  if (!existsSync(configPath)) return null
+  return JSON.parse(readFileSync(configPath, 'utf-8')) as FactoryConfig
+}
+
+/**
+ * Update the modules list in factory.config.json, adding newly installed modules.
+ */
+export function updateFactoryConfigModules(targetDir: string, addedModules: string[]): void {
+  const configPath = resolve(targetDir, 'factory.config.json')
+  const existing = existsSync(configPath)
+    ? (JSON.parse(readFileSync(configPath, 'utf-8')) as FactoryConfig)
+    : { preset: 'custom', theme: 'default', modules: [], layout: 'marketing' }
+
+  const merged = Array.from(new Set([...existing.modules, ...addedModules]))
+  writeFileSync(configPath, JSON.stringify({ ...existing, modules: merged }, null, 2) + '\n', 'utf-8')
+}
+
+/**
+ * Merge dependencies from a module manifest into an existing package.json.
+ * Skips if package.json does not exist.
+ */
+export function mergeDepsToPackageJson(
+  targetDir: string,
+  deps: Record<string, string>,
+  devDeps: Record<string, string>
+): void {
+  const pkgPath = resolve(targetDir, 'package.json')
+  if (!existsSync(pkgPath)) return
+
+  const pkg = JSON.parse(readFileSync(pkgPath, 'utf-8')) as Record<string, unknown>
+
+  if (Object.keys(deps).length > 0) {
+    pkg.dependencies = { ...(pkg.dependencies as Record<string, string> | undefined ?? {}), ...deps }
+  }
+
+  if (Object.keys(devDeps).length > 0) {
+    pkg.devDependencies = { ...(pkg.devDependencies as Record<string, string> | undefined ?? {}), ...devDeps }
+  }
+
+  writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + '\n', 'utf-8')
+}
+
+/**
+ * Append env vars from a module to .env.example (not .env.local) in the target project.
+ * Only adds vars that are not already present.
+ */
+export function appendEnvVars(targetDir: string, envVars: string[]): void {
+  if (envVars.length === 0) return
+
+  const envPath = resolve(targetDir, '.env.example')
+  const existing = existsSync(envPath) ? readFileSync(envPath, 'utf-8') : ''
+
+  const toAdd = envVars.filter((v) => !existing.includes(v))
+  if (toAdd.length === 0) return
+
+  const lines = existing.endsWith('\n') ? [] : ['\n']
+  lines.push('# Added by factory add', ...toAdd.map((v) => `${v}=`), '')
+
+  writeFileSync(envPath, existing + lines.join('\n'), 'utf-8')
+}
