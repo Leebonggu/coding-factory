@@ -17,28 +17,20 @@ pnpm install
 ### 2. CLI 빌드
 
 ```bash
-pnpm --filter @coding-factory/cli build
+pnpm cli:build
 ```
 
 ### 3. 프로젝트 생성
 
 ```bash
-node packages/cli/dist/index.js init my-project
-```
+# 인터렉티브 (프롬프트로 선택)
+pnpm factory init my-project
 
-인터렉티브 프롬프트가 실행됩니다:
+# 프리셋 지정 (테마는 프롬프트)
+pnpm factory init my-project --preset landing
 
-```
-? Select a preset
-  ○ landing    — Landing page / company site
-  ○ saas       — SaaS application with dashboard
-  ○ ecommerce  — E-commerce with payments
-  ○ custom     — Pick modules manually
-
-? Select a theme
-  ○ default    — 뉴트럴 톤
-  ○ corporate  — 블루/포멀
-  ○ playful    — 밝은/캐주얼
+# 프롬프트 없이 바로 생성
+pnpm factory init my-project --preset saas --theme corporate
 ```
 
 ### 4. 생성된 프로젝트 실행
@@ -49,21 +41,58 @@ pnpm install
 pnpm dev
 ```
 
-## 모듈 추가/제거
-
-프로젝트 생성 후에도 모듈을 추가하거나 제거할 수 있습니다.
+## CLI 명령어
 
 ```bash
-cd my-project
+# 전체 헬프
+pnpm factory -h
 
-# 결제 모듈 추가
-node /path/to/coding-factory/packages/cli/dist/index.js add payments
+# 프로젝트 생성
+pnpm factory init [name] [--preset <preset>] [--theme <theme>]
 
-# 광고 모듈 제거
-node /path/to/coding-factory/packages/cli/dist/index.js remove ads
+# 모듈 추가 (프로젝트 디렉토리에서)
+pnpm factory add <module>
+
+# 모듈 제거
+pnpm factory remove <module>
+
+# 서브커맨드 헬프
+pnpm factory init -h
+pnpm factory add -h
+pnpm factory remove -h
 ```
 
-의존성은 자동 해결됩니다. `auth` 추가 시 `db`가 필요하면 함께 추가할지 물어봅니다.
+`--preset`과 `--theme`을 둘 다 지정하면 프롬프트 없이 바로 생성됩니다.
+
+### 예시
+
+```bash
+# 랜딩페이지 프로젝트
+pnpm factory init my-landing --preset landing --theme default
+
+# SaaS 대시보드
+pnpm factory init my-saas --preset saas --theme corporate
+
+# 이커머스 (전체 모듈)
+pnpm factory init my-shop --preset ecommerce --theme playful
+
+# 모듈 추가/제거
+cd my-project
+pnpm factory add payments    # 결제 모듈 추가
+pnpm factory add auth        # 인증 모듈 추가 (db 의존성 자동 해결)
+pnpm factory remove ads      # 광고 모듈 제거
+```
+
+## 개발자 명령어
+
+```bash
+pnpm cli:build                          # CLI 빌드
+pnpm factory -h                         # CLI 헬프
+pnpm test:e2e                           # 3개 프리셋 E2E 테스트
+pnpm test:e2e landing                   # 개별 프리셋 테스트
+pnpm --filter @coding-factory/demo dev  # 데모 사이트 로컬 실행
+pnpm demo:build                         # 데모 사이트 빌드
+```
 
 ## 프리셋
 
