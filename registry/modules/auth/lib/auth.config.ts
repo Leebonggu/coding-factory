@@ -18,7 +18,6 @@
  */
 
 import type { NextAuthConfig } from 'next-auth'
-import '@/types/next-auth'
 import Google from 'next-auth/providers/google'
 import Credentials from 'next-auth/providers/credentials'
 // import Kakao from 'next-auth/providers/kakao'
