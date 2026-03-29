@@ -1,0 +1,10 @@
+{
+  "preset": "landing",
+  "theme": "default",
+  "modules": [
+    "seo",
+    "analytics",
+    "ads"
+  ],
+  "layout": "marketing"
+}
