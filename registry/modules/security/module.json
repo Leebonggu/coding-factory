@@ -1,0 +1,21 @@
+{
+  "name": "security",
+  "description": "HTTP security headers, CSP, CSRF protection, rate limiting, input validation",
+  "category": "security",
+  "dependencies": { "zod": "^3" },
+  "devDependencies": {},
+  "requiredModules": [],
+  "optionalModules": [],
+  "files": [
+    { "source": "lib/security-headers.ts", "target": "src/lib/security/security-headers.ts" },
+    { "source": "lib/csrf.ts", "target": "src/lib/security/csrf.ts" },
+    { "source": "lib/rate-limit.ts", "target": "src/lib/security/rate-limit.ts" },
+    { "source": "lib/validate.ts", "target": "src/lib/security/validate.ts" },
+    { "source": "lib/env-check.ts", "target": "src/lib/security/env-check.ts" },
+    { "source": "middleware.ts", "target": "src/lib/middlewares/security.ts" }
+  ],
+  "configPatches": [
+    { "file": "src/middleware.ts", "action": "merge", "source": "middleware.ts" }
+  ],
+  "envVars": []
+}

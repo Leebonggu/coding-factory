@@ -1,0 +1,21 @@
+{
+  "name": "db",
+  "description": "Database adapter pattern - Prisma default, Drizzle alternative, None for static sites",
+  "category": "core",
+  "dependencies": {
+    "prisma": "^6",
+    "@prisma/client": "^6"
+  },
+  "devDependencies": {},
+  "requiredModules": [],
+  "optionalModules": [],
+  "files": [
+    { "source": "lib/db.ts", "target": "src/lib/db.ts" },
+    { "source": "lib/db-adapter.ts", "target": "src/lib/db-adapter.ts" },
+    { "source": "prisma/schema.prisma", "target": "prisma/schema.prisma" }
+  ],
+  "configPatches": [
+    { "file": ".env.example", "action": "append", "content": "DATABASE_URL=\"postgresql://user:password@localhost:5432/mydb?schema=public\"" }
+  ],
+  "envVars": ["DATABASE_URL"]
+}

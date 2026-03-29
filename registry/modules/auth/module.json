@@ -1,0 +1,29 @@
+{
+  "name": "auth",
+  "description": "NextAuth.js v5 authentication - social login, credentials, session management",
+  "category": "security",
+  "dependencies": {
+    "next-auth": "^5.0.0-beta.25",
+    "@auth/prisma-adapter": "^2"
+  },
+  "devDependencies": {},
+  "requiredModules": ["db"],
+  "optionalModules": ["security", "analytics"],
+  "files": [
+    { "source": "lib/auth.ts", "target": "src/lib/auth.ts" },
+    { "source": "lib/auth.config.ts", "target": "src/lib/auth.config.ts" },
+    { "source": "components/login-form.tsx", "target": "src/components/auth/login-form.tsx" },
+    { "source": "components/signup-form.tsx", "target": "src/components/auth/signup-form.tsx" },
+    { "source": "components/user-button.tsx", "target": "src/components/auth/user-button.tsx" },
+    { "source": "app/(auth)/login/page.tsx", "target": "src/app/(auth)/login/page.tsx" },
+    { "source": "app/(auth)/register/page.tsx", "target": "src/app/(auth)/register/page.tsx" },
+    { "source": "app/(auth)/layout.tsx", "target": "src/app/(auth)/layout.tsx" },
+    { "source": "app/api/auth/[...nextauth]/route.ts", "target": "src/app/api/auth/[...nextauth]/route.ts" },
+    { "source": "middleware.ts", "target": "src/lib/middlewares/auth.ts" }
+  ],
+  "configPatches": [
+    { "file": "src/middleware.ts", "action": "merge", "source": "middleware.ts" },
+    { "file": ".env.example", "action": "append", "content": "NEXTAUTH_SECRET=\nNEXTAUTH_URL=\nGOOGLE_CLIENT_ID=\nGOOGLE_CLIENT_SECRET=\nKAKAO_CLIENT_ID=\nKAKAO_CLIENT_SECRET=\nNAVER_CLIENT_ID=\nNAVER_CLIENT_SECRET=" }
+  ],
+  "envVars": ["NEXTAUTH_SECRET", "NEXTAUTH_URL", "GOOGLE_CLIENT_ID", "GOOGLE_CLIENT_SECRET"]
+}
