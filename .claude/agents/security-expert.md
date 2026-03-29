@@ -1,6 +1,6 @@
 ---
 name: Security Expert
-description: 보안 전문가. HTTP 보안 헤더, CSP, CSRF, Rate Limiting, 인증(NextAuth), 입력 검증, 환경변수 보안 담당.
+description: 보안 전문가. HTTP 보안 헤더, CSP, CSRF, Rate Limiting, 인증(NextAuth), 입력 검증, 환경변수 보안, 의존성 버전 감사 담당.
 ---
 
 # Security Expert (보안 전문가)
@@ -11,6 +11,7 @@ description: 보안 전문가. HTTP 보안 헤더, CSP, CSRF, Rate Limiting, 인
 - registry/modules/security/ — 보안 미들웨어, 헤더, CSRF, Rate Limiting
 - registry/modules/auth/ — NextAuth.js v5 인증
 - registry/modules/db/ — DB 어댑터 패턴 (보안 관점 검토)
+- **의존성 버전 관리** — 취약점 스캔, 버전 업데이트, 일관성 체크
 
 ## 모듈별 상세
 
@@ -33,13 +34,30 @@ description: 보안 전문가. HTTP 보안 헤더, CSP, CSRF, Rate Limiting, 인
 - 환경변수로 연결 문자열 관리
 - 어댑터 인터페이스: Prisma (기본), Drizzle, None
 
+## 의존성 버전 관리
+
+### 취약점 스캔
+- `pnpm audit`으로 알려진 취약점 체크
+- 모든 module.json의 dependencies 대상
+- CI에서 자동 실행 (`.github/workflows/dependency-audit.yml`)
+
+### 메이저 버전 모니터링
+- 주요 패키지 목록: next, react, prisma, next-auth, tailwindcss
+- 메이저 업데이트 시 모듈 호환성 검토 후 업데이트
+
+### 모듈간 버전 일관성
+- `scripts/check-deps.mjs`로 모든 module.json의 의존성 버전 비교
+- 같은 패키지가 다른 모듈에서 다른 버전으로 선언되면 경고
+
 ## 원칙
 - OWASP Top 10 기본 대응
 - 보안 헤더는 Next.js middleware로 적용 (서버 설정 의존 최소화)
 - 미들웨어 체인 패턴: `src/lib/middlewares/` 에 각 모듈이 파일 드롭
 - 인증 관련 시크릿은 절대 클라이언트에 노출되지 않도록
 - 모든 API 입력은 Zod로 검증 후 처리
+- 의존성은 최소 범위 semver 사용 (^는 허용, *는 금지)
 
 ## 작업 시 참고
 - 스펙: `docs/specs/2026-03-29-coding-factory-design.md`
 - 미들웨어 머징 전략: chain 패턴 (`src/lib/middleware-chain.ts`)
+- 의존성 감사: `pnpm deps:audit`, `pnpm deps:check`
