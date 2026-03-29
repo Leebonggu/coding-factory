@@ -1,4 +1,4 @@
-import { copySync, ensureDirSync, existsSync, readFileSync, writeFileSync, removeSync } from 'fs-extra'
+import { cpSync, mkdirSync, existsSync, readFileSync, writeFileSync, rmSync } from 'node:fs'
 import { resolve, dirname } from 'path'
 import { fileURLToPath } from 'url'
 import {
@@ -37,8 +37,8 @@ export function copyBaseStarter(targetDir: string): void {
     throw new Error(`Base starter not found at: ${basePath}`)
   }
 
-  ensureDirSync(targetDir)
-  copySync(basePath, targetDir, { overwrite: false, errorOnExist: false })
+  mkdirSync(targetDir, { recursive: true })
+  cpSync(basePath, targetDir, { recursive: true, force: false, errorOnExist: false })
 }
 
 /**
@@ -51,8 +51,8 @@ export function applyTheme(targetDir: string, theme: string): void {
 
   if (existsSync(tokensSrcPath)) {
     const targetTokensPath = resolve(targetDir, 'src', 'styles', 'tokens.css')
-    ensureDirSync(dirname(targetTokensPath))
-    copySync(tokensSrcPath, targetTokensPath, { overwrite: true })
+    mkdirSync(dirname(targetTokensPath), { recursive: true })
+    cpSync(tokensSrcPath, targetTokensPath, { force: true })
   }
 
   // Write a factory.config.json to record which theme/preset was applied
@@ -84,8 +84,8 @@ export function applyModule(targetDir: string, moduleName: string): void {
       continue
     }
 
-    ensureDirSync(dirname(dest))
-    copySync(src, dest, { overwrite: true })
+    mkdirSync(dirname(dest), { recursive: true })
+    cpSync(src, dest, { recursive: true, force: true })
   }
 }
 
@@ -242,7 +242,7 @@ export function removeModuleFiles(targetDir: string, manifest: ModuleManifest): 
   for (const fileEntry of manifest.files) {
     const dest = resolve(targetDir, fileEntry.target)
     if (existsSync(dest)) {
-      removeSync(dest)
+      rmSync(dest, { recursive: true, force: true })
     }
   }
 }
