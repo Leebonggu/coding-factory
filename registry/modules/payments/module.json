@@ -1,0 +1,27 @@
+{
+  "name": "payments",
+  "description": "Payment gateway integration - Toss Payments (KR) / Stripe (Global) with unified adapter pattern",
+  "category": "payments",
+  "dependencies": {},
+  "devDependencies": {},
+  "requiredModules": [],
+  "optionalModules": ["db", "auth"],
+  "files": [
+    { "source": "types/payment.ts", "target": "src/types/payment.ts" },
+    { "source": "lib/payment-adapter.ts", "target": "src/lib/payments/payment-adapter.ts" },
+    { "source": "lib/toss.ts", "target": "src/lib/payments/toss.ts" },
+    { "source": "lib/stripe.ts", "target": "src/lib/payments/stripe.ts" },
+    { "source": "lib/payment-config.ts", "target": "src/lib/payments/payment-config.ts" },
+    { "source": "lib/format.ts", "target": "src/lib/payments/format.ts" },
+    { "source": "components/payment-button.tsx", "target": "src/components/payments/payment-button.tsx" },
+    { "source": "components/payment-status.tsx", "target": "src/components/payments/payment-status.tsx" },
+    { "source": "app/api/payments/checkout/route.ts", "target": "src/app/api/payments/checkout/route.ts" },
+    { "source": "app/api/payments/confirm/route.ts", "target": "src/app/api/payments/confirm/route.ts" },
+    { "source": "app/api/payments/webhook/route.ts", "target": "src/app/api/payments/webhook/route.ts" },
+    { "source": "prisma/payment.prisma", "target": "prisma/models/payment.prisma" }
+  ],
+  "configPatches": [
+    { "file": ".env.example", "action": "append", "content": "# Payments - choose one provider\nPAYMENT_PROVIDER=toss\n\n# Toss Payments\nTOSS_CLIENT_KEY=\nTOSS_SECRET_KEY=\n\n# Stripe\nSTRIPE_PUBLISHABLE_KEY=\nSTRIPE_SECRET_KEY=\nSTRIPE_WEBHOOK_SECRET=" }
+  ],
+  "envVars": ["PAYMENT_PROVIDER", "TOSS_CLIENT_KEY", "TOSS_SECRET_KEY", "STRIPE_PUBLISHABLE_KEY", "STRIPE_SECRET_KEY", "STRIPE_WEBHOOK_SECRET"]
+}

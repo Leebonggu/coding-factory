@@ -1,0 +1,26 @@
+// Payment model — add to your main schema.prisma if using the db module.
+//
+// Copy the model below into prisma/schema.prisma, then run:
+//   npx prisma db push   (or npx prisma migrate dev)
+
+model Payment {
+  id         String   @id @default(cuid())
+  provider   String   // 'toss' | 'stripe'
+  paymentKey String   @unique
+  orderId    String
+  amount     Int
+  currency   String   @default("KRW")
+  status     String   @default("pending") // pending, ready, in_progress, done, canceled, failed, expired
+  method     String?  // card, transfer, etc.
+  approvedAt DateTime?
+  raw        Json?    // Full PG response for debugging
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  // Uncomment if using with auth module:
+  // userId String?
+  // user   User?   @relation(fields: [userId], references: [id])
+
+  @@index([orderId])
+  @@index([status])
+}

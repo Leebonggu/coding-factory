@@ -49,6 +49,14 @@
       "path": "modules/db",
       "requiredModules": [],
       "optionalModules": []
+    },
+    "payments": {
+      "name": "payments",
+      "description": "Payment gateway (Toss Payments / Stripe) with unified adapter",
+      "category": "payments",
+      "path": "modules/payments",
+      "requiredModules": [],
+      "optionalModules": ["db", "auth"]
     }
   },
   "presets": {
@@ -69,7 +77,7 @@
     "ecommerce": {
       "name": "ecommerce",
       "description": "E-commerce / shopping mall",
-      "modules": ["auth", "db", "security", "seo", "analytics", "ads"],
+      "modules": ["auth", "db", "security", "seo", "analytics", "ads", "payments"],
       "layout": "marketing",
       "theme": "default"
     }
