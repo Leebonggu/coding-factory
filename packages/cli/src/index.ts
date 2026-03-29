@@ -15,6 +15,8 @@ program
   .command('init')
   .description('Create a new project from a preset')
   .argument('[name]', 'Project name')
+  .option('--preset <preset>', 'Preset name (landing, saas, ecommerce)')
+  .option('--theme <theme>', 'Theme name (default, corporate, playful)')
   .action(init)
 
 program
