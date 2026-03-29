@@ -70,5 +70,5 @@ export async function requireAuth() {
     redirect('/login')
   }
 
-  return session.user
+  return session!.user
 }

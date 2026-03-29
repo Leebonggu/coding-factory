@@ -5,7 +5,7 @@ interface SeoProps {
   description: string
   url?: string
   image?: string
-  type?: 'website' | 'article' | 'product'
+  type?: 'website' | 'article'
   keywords?: string[]
   noIndex?: boolean
 }
