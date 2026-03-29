@@ -2,6 +2,7 @@
 import { Command } from 'commander'
 import { init } from './commands/init.js'
 import { add } from './commands/add.js'
+import { remove } from './commands/remove.js'
 
 const program = new Command()
 
@@ -21,5 +22,11 @@ program
   .description('Add a module to an existing project')
   .argument('<module>', 'Module name')
   .action(add)
+
+program
+  .command('remove')
+  .description('Remove a module from an existing project')
+  .argument('<module>', 'Module name')
+  .action(remove)
 
 program.parse()

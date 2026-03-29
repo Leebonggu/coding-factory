@@ -1,4 +1,4 @@
-import { copySync, ensureDirSync, existsSync, readFileSync, writeFileSync } from 'fs-extra'
+import { copySync, ensureDirSync, existsSync, readFileSync, writeFileSync, removeSync } from 'fs-extra'
 import { resolve, dirname } from 'path'
 import { fileURLToPath } from 'url'
 import {
@@ -6,6 +6,7 @@ import {
   getModuleSourceDir,
   resolveModuleDependencies,
   loadRegistry,
+  type ModuleManifest,
 } from './registry.js'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
@@ -232,4 +233,66 @@ export function appendEnvVars(targetDir: string, envVars: string[]): void {
   lines.push('# Added by factory add', ...toAdd.map((v) => `${v}=`), '')
 
   writeFileSync(envPath, existing + lines.join('\n'), 'utf-8')
+}
+
+/**
+ * Delete all files listed in a module manifest from the target project directory.
+ */
+export function removeModuleFiles(targetDir: string, manifest: ModuleManifest): void {
+  for (const fileEntry of manifest.files) {
+    const dest = resolve(targetDir, fileEntry.target)
+    if (existsSync(dest)) {
+      removeSync(dest)
+    }
+  }
+}
+
+/**
+ * Remove specific dependency keys from package.json.
+ * Accepts separate arrays for regular and dev dependencies.
+ * Skips if package.json does not exist.
+ */
+export function removeDepsFromPackageJson(
+  targetDir: string,
+  deps: string[],
+  devDeps: string[]
+): void {
+  const pkgPath = resolve(targetDir, 'package.json')
+  if (!existsSync(pkgPath)) return
+
+  const pkg = JSON.parse(readFileSync(pkgPath, 'utf-8')) as Record<string, unknown>
+
+  if (deps.length > 0 && pkg.dependencies && typeof pkg.dependencies === 'object') {
+    const d = pkg.dependencies as Record<string, string>
+    for (const key of deps) {
+      delete d[key]
+    }
+    pkg.dependencies = d
+  }
+
+  if (devDeps.length > 0 && pkg.devDependencies && typeof pkg.devDependencies === 'object') {
+    const d = pkg.devDependencies as Record<string, string>
+    for (const key of devDeps) {
+      delete d[key]
+    }
+    pkg.devDependencies = d
+  }
+
+  writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + '\n', 'utf-8')
+}
+
+/**
+ * Remove a single module from the modules list in factory.config.json.
+ */
+export function removeModuleFromConfig(targetDir: string, moduleName: string): void {
+  const configPath = resolve(targetDir, 'factory.config.json')
+  if (!existsSync(configPath)) return
+
+  const existing = JSON.parse(readFileSync(configPath, 'utf-8')) as FactoryConfig
+  const updated = existing.modules.filter((m) => m !== moduleName)
+  writeFileSync(
+    configPath,
+    JSON.stringify({ ...existing, modules: updated }, null, 2) + '\n',
+    'utf-8'
+  )
 }
