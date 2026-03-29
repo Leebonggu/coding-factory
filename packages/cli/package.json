@@ -15,11 +15,9 @@
   "dependencies": {
     "@clack/prompts": "^0.9",
     "commander": "^13",
-    "fs-extra": "^11",
     "picocolors": "^1"
   },
   "devDependencies": {
-    "@types/fs-extra": "^11",
     "@types/node": "^22",
     "tsup": "^8",
     "typescript": "^5"
